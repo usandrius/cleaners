@@ -1,18 +1,35 @@
 <template>
-	<div class="cleaners-wrapper">
+	<div class="container d-flex justify-content-center">
+		<div class="cleaners-wrapper col-lg-5 col-md-8 col-12">
 		
-		<div class="add-block-wrapper">
-			<input type="text" v-model="newName">
-			<button @click="addCleaner">Добавить</button>
+			<div class="add-block-wrapper input-group my-5">
+
+			  <input type="text"
+			  			 v-model="newName"
+			  			 class="form-control"
+			  			 placeholder="Введите имя уборщика"
+			  			 aria-describedby="button-add">
+			  <div class="input-group-append">
+			    <button @click="addCleaner"
+			    				class="btn btn-outline-success"
+			    				type="button"
+			    				id="button-add">Добавить</button>
+			  </div>
+
+			</div>
+
+			<ul v-if="cleanersList.length" class="cleaners-list list-group">
+				<li v-for="cleaner in cleanersList"
+						:key="cleaner.id"
+						class="list-group-item d-flex justify-content-between align-items-center">
+					<span>{{ cleaner.name }}</span>
+					<button @click="removeCleaner(cleaner.id)"
+									type="button"
+									class="btn btn-outline-danger">Удалить</button>
+				</li>
+			</ul>
+
 		</div>
-
-		<ul v-if="cleanersList.length" class="cleaners-list">
-			<li v-for="cleaner in cleanersList" :key="cleaner.id">
-				<span>{{ cleaner.name }}</span>
-				<button @click="removeCleaner(cleaner.id)">Удалить</button>
-			</li>
-		</ul>
-
 	</div>
 </template>
 

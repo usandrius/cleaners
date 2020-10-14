@@ -2,9 +2,16 @@
   <div id="app">
     
     <header>
-      <nav>
-        <router-link to="/schedule">График</router-link>
-        <router-link to="/cleaners">Уборщицы</router-link>
+      <nav class="navbar navbar-expand navbar-light bg-light">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <router-link class="nav-link" to="/schedule">График</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/cleaners">Уборщицы</router-link>
+          </li>
+        </ul>
+        
       </nav>
     </header>
     

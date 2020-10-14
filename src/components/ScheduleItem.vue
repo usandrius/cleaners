@@ -1,15 +1,24 @@
 <template>
-	<li class="schedule-item" :class="{ disabled: item.disabled }">
-		
+	<li class="schedule-item list-group-item d-flex flex-wrap align-items-center justify-content-center justify-content-sm-start"
+			:class="{ disabled: item.disabled }">
+
 		<input type="checkbox" v-model="isChecked">
-		<span class="time">{{ item.hours + ':' + item.minutes }}</span>
-		<span v-if="item.cleanerName" class="cleaner-name">{{ item.cleanerName }}</span>
-		<select v-else v-model="selectedCleaner">
-			<option disabled value="">Выберите уборщика</option>
-			<option v-for="cleaner in cleanersList"
-							:key="cleaner.id">{{ cleaner.name }}</option>
-		</select>
-		<button v-if="isVisibleButtonSave" @click="buttonSaveClicked">Сохранить</button>
+		<div class="time col-2">{{ item.hours + ':' + item.minutes }}</div>
+
+		<div v-if="item.cleanerName" class="cleaner-name col-sm-5 col-7">{{ item.cleanerName }}</div>
+		<div v-else class="select-wrap col-sm-5 col-7">
+			<select v-model="selectedCleaner">
+				<option disabled value="">Выберите уборщика</option>
+				<option v-for="cleaner in cleanersList"
+								:key="cleaner.id">{{ cleaner.name }}</option>
+			</select>
+		</div>
+
+		<div v-if="isVisibleButtonSave"
+				 class="btn-wrap col-sm-4 col-12 mt-2 mt-sm-0 d-flex justify-content-center">
+			<button @click="buttonSaveClicked"
+							class="btn btn-outline-success">Сохранить</button>
+		</div>
 
 	</li>
 </template>
@@ -62,12 +71,13 @@
 			 */
 			buttonSaveClicked () {
 				let newItem = this.item
-				newItem.checked = this.isChecked
+				newItem.isChecked = this.isChecked
 				newItem.cleanerName = this.selectedCleaner
+				newItem.disabled = true
 
 				this.selectedCleaner = ''
 
-				this.$emit('updateItem', newItem)
+				this.$emit('update-item', newItem)
 			}
 		}
 	}
